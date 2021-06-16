@@ -4,14 +4,16 @@
 #include<string>
 #include <numeric>
 #include<map>
-using namespace std;
+
+using std::cout;
+using std::endl;
 
 std::string password()
 {
     std::string result;
     srand(time(NULL));
     int x = rand() % 10;
-    result += to_string(x);   //number
+    result += std::to_string(x);   //number
 
     char ch3 = (rand() % ('!' - '\'') + '!'); //symbol
      result += ch3;
@@ -27,7 +29,7 @@ std::string password()
     result += ch2;
 
     int x2 = rand() % 100; //number
-    result += to_string(x2);
+    result += std::to_string(x2);
     if (result.size() > 24)
         result.erase(result.begin() + 24, result.end());
     else if (result.size() < 8)
@@ -47,7 +49,7 @@ std::string password()
 
 bool check_pass(const std::string& str)
 {
-    std::map<string, int> mp;
+    std::map<std::string, int> mp;
     int int_counter = 0;
     int upper_counter = 0;
     int low_counter = 0;
@@ -87,7 +89,7 @@ bool check_pass(const std::string& str)
 }
 int main()
 {
-    string pass = password();
+    std::string pass = password();
     cout << pass<<endl;
     check_pass(pass);
 }
