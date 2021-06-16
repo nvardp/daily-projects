@@ -1,5 +1,0 @@
-﻿  Cube encryption.cpp
-C:\Users\Nvard Petrosyan\source\repos\Cube encryption\Cube encryption\Cube encryption.cpp(15,13): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Users\Nvard Petrosyan\source\repos\Cube encryption\Cube encryption\Cube encryption.cpp(88,21): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Nvard Petrosyan\source\repos\Cube encryption\Cube encryption\Cube encryption.cpp(110): warning C4715: 'Cubes::get_script': not all control paths return a value
-  Cube encryption.vcxproj -> C:\Users\Nvard Petrosyan\source\repos\Cube encryption\Debug\Cube encryption.exe
