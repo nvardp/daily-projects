@@ -1,39 +1,28 @@
-#include <iostream>
-#include <stdlib.h>
-#include <time.h>
-#include<string>
-#include<vector>
-#include<array>
-using namespace std;
-const int CUBE_SIZE = 8;
+#include "cube.h"
 
-class Cubes
-{
-public:
-	Cubes()
+ Cubes::Cubes()
 	{
 		srand(time(0));
 	}
-	using Data = vector<array<char, 8> >;
-	string encrypt(const string& str)
+	std::string  Cubes::encrypt(const std::string& str)
 	{
-		size = str.size() - 3;
+		m_size = str.size() - 3;
 		auto a = generate_cube(str);
 		auto as = rotate_cubes();
 		as += "\n";
 		as += get_rotated();
 		return as;
 	}
-	string decrypt(const string& str)
+	std::string  Cubes::decrypt(const std::string& str)
 	{
 		derotate(str);
-		string a = get_rotated();
-		a.erase(a.begin() + size, a.end());
+		std::string a = get_rotated();
+		a.erase(a.begin() + m_size, a.end());
 		return a;
 	}
 
-private:
-	void derotate(const string& str)
+
+	void  Cubes::derotate(const std::string& str)
 	{
 		auto it = str.cbegin();
 		while (*it != '^')
@@ -47,7 +36,7 @@ private:
 			it++; it++;
 		}
 	}
-	Data generate_cube(const string& s)
+	Cubes::Data  Cubes::generate_cube(const std::string& s)
 	{
 		auto it = s.cbegin();
 		int last = 0;
@@ -64,12 +53,12 @@ private:
 		}
 		return vec;
 	}
-	string  rotate_cubes()
+	std::string  Cubes::rotate_cubes()
 	{
-		string result = "";
+		std::string result = "";
 		for (unsigned int cube_number = 0; cube_number < vec.size(); cube_number++)
 		{
-			result += to_string(cube_number + 1);
+			result += std::to_string(cube_number + 1);
 			int rotation_time = rnd_number();
 			for (int i = 0; i < rotation_time; i++)
 			{
@@ -82,9 +71,9 @@ private:
 		result += "^";
 		return result;
 	}
-	string get_rotated() const
+	std::string  Cubes::get_rotated() const
 	{
-		string str = "";
+		std::string str = "";
 		for (int i = 0; i < vec.size(); i++)
 		{
 			for (int j = 0; j < CUBE_SIZE; j++)
@@ -94,7 +83,7 @@ private:
 		}
 		return str;
 	}
-	string get_script(int x) const noexcept
+	std::string  Cubes::get_script(int x) const noexcept
 	{
 		switch (x)
 		{
@@ -109,7 +98,7 @@ private:
 		}
 	}
 
-	void chose_direction(char x, unsigned int index)
+	void  Cubes::chose_direction(char x, unsigned int index)
 	{
 		switch (x)
 		{
@@ -129,7 +118,7 @@ private:
 			break;
 		}
 	}
-	void chose_direction(int x, unsigned int index)
+	void  Cubes::chose_direction(int x, unsigned int index)
 	{
 		switch (x)
 		{
@@ -148,67 +137,46 @@ private:
 		}
 	}
 
-	void to_left(unsigned int inedx)
+	void  Cubes::to_left(unsigned int inedx)
 	{
-		swap(vec[inedx][4], vec[inedx][5]);
-		swap(vec[inedx][5], vec[inedx][1]);
-		swap(vec[inedx][1], vec[inedx][0]);
-		swap(vec[inedx][6], vec[inedx][7]);
-		swap(vec[inedx][7], vec[inedx][3]);
-		swap(vec[inedx][3], vec[inedx][2]);
+		std::swap(vec[inedx][4], vec[inedx][5]);
+		std::swap(vec[inedx][5], vec[inedx][1]);
+		std::swap(vec[inedx][1], vec[inedx][0]);
+		std::swap(vec[inedx][6], vec[inedx][7]);
+		std::swap(vec[inedx][7], vec[inedx][3]);
+		std::swap(vec[inedx][3], vec[inedx][2]);
 	}
-	void to_right(unsigned int v)
+	void  Cubes::to_right(unsigned int v)
 	{
-		swap(vec[v][5], vec[v][1]);
-		swap(vec[v][5], vec[v][0]);
-		swap(vec[v][4], vec[v][5]);
+		std::swap(vec[v][5], vec[v][1]);
+		std::swap(vec[v][5], vec[v][0]);
+		std::swap(vec[v][4], vec[v][5]);
 
-		swap(vec[v][7], vec[v][3]);
-		swap(vec[v][7], vec[v][2]);
-		swap(vec[v][6], vec[v][7]);
+		std::swap(vec[v][7], vec[v][3]);
+		std::swap(vec[v][7], vec[v][2]);
+		std::swap(vec[v][6], vec[v][7]);
 	}
-	void up(unsigned int v)
+	void  Cubes::up(unsigned int v)
 	{
-		swap(vec[v][0], vec[v][3]);
-		swap(vec[v][3], vec[v][2]);
-		swap(vec[v][2], vec[v][1]);
+		std::swap(vec[v][0], vec[v][3]);
+		std::swap(vec[v][3], vec[v][2]);
+		std::swap(vec[v][2], vec[v][1]);
 
-		swap(vec[v][4], vec[v][7]);
-		swap(vec[v][7], vec[v][6]);
-		swap(vec[v][6], vec[v][5]);
+		std::swap(vec[v][4], vec[v][7]);
+		std::swap(vec[v][7], vec[v][6]);
+		std::swap(vec[v][6], vec[v][5]);
 	}
-	void down(unsigned int v)
+	void  Cubes::down(unsigned int v)
 	{
 		for (int i = 0; i < CUBE_SIZE / 2 - 1; i++)
 		{
-			swap(vec[v][i], vec[v][i + 1]);
-			swap(vec[v][i + 4], vec[v][i + 5]);
+			std::swap(vec[v][i], vec[v][i + 1]);
+			std::swap(vec[v][i + 4], vec[v][i + 5]);
 		}
 	}
 
-	int rnd_number()
+	int  Cubes::rnd_number()
 	{
-		return rand() % 4;
+		return rand() % RANGE;
 	}
-private:
-	array<char, CUBE_SIZE> cube{ '0' };
-	vector<array<char, CUBE_SIZE> > vec;
-	int size; // bug fix helper 
-};
-
-int main()
-{
-	
-	string tmp = "";
-	string str = "";
-	while (tmp != "end")
-	{
-		cin >> tmp;
-		str += tmp;
-	}
-	Cubes ob;
-	auto encoded = ob.encrypt(str);
-	cout << "Encrypred text is: \n" << encoded << endl;
-	cout << "\n Decrypted text is: \n" << ob.decrypt(encoded) << endl;
-}
 
